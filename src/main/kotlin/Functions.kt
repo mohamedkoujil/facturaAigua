@@ -21,14 +21,23 @@ fun costLitre (consum: Int): Double {
  * @since 10/01/2023
  * @return Descompte de familia nombrosa o monoparental
  */
-fun descompteFM (): Double {
-    var membresFamilia = readInt("Membres de la familia", "Introdueixi un nombre")
+fun descompteFN (membresFamilia: Int): Double {
     var descompteFM: Double = (10*membresFamilia)/100.0
+    if (descompteFM > 0.5) descompteFM = 0.5
     return descompteFM
+}
+
+fun total (quotaFixa: Double, quotaVariable: Double, consum: Int, descompteBS: Double, descompteFN: Double): Double {
+    var totalSenseDescomptes = quotaVariable+quotaFixa
+    var descomptes = (totalSenseDescomptes*descompteFN) + (totalSenseDescomptes*descompteBS)
+    var total = totalSenseDescomptes - descomptes
+    return total
 }
 
 /**
  * Aquesta funció rep la quota fixa, la quota variable, el consum, el descompte del bo social i el descompte de familia nombrosa o monoparental i imprimeix la factura amb els descomptes aplicats i el total a pagar
+ * @author mohamedkoujil
+ * @since 10/01/2023
  * @param quotaFixa Quota fixa
  * @param quotaVariable Quota variable
  * @param consum Consum
@@ -39,14 +48,38 @@ fun descompteFM (): Double {
 fun factura (quotaFixa: Double, quotaVariable: Double, consum: Int, descompteBS: Double, descompteFN: Double) {
     var totalSenseDescomptes = quotaVariable+quotaFixa
     var descomptes = (totalSenseDescomptes*descompteFN) + (totalSenseDescomptes*descompteBS)
-    var total = totalSenseDescomptes - descomptes
 
+    println("           FACTURA")
+    println("---------------------------")
+    println("- Quota fixa:        ${formatMoneda(quotaFixa)}")
+    println("- Quota variable:    ${formatMoneda(quotaVariable)}")
+    println("- Consum:            $consum L")
+    println("- Total Brut:        ${formatMoneda(totalSenseDescomptes)}")
+    println("- Descompte FN:      ${formatPercentage(descompteFN)}")
+    println("- Descompte BS:      ${formatPercentage(descompteBS)}")
+    println("                     ------")
+    println("- TOTAL:             ${formatMoneda(total(quotaFixa, quotaVariable, consum, descompteBS, descompteFN))}")
+}
 
-    println("Quota fixa: $quotaFixa")
-    println("Consum: $consum L")
-    println("Total Brut: %.2f€".format(totalSenseDescomptes))
-    println("Descompte FN: ${descompteFN*100}%\n" +
-            "Descompte BS: ${descompteBS*100}%")
-    println("Total: %.2f€".format(total))
+/**
+ * Aquesta funció formata un nombre al format de moneda
+ * @author mohamedkoujil
+ * @since 10/01/2023
+ * @param amount Quantitat a transformar
+ * @return Quantitat amb el format de moneda
+ */
+fun formatMoneda(amount: Double): String {
+    return "%.2f€".format(amount)
+}
+
+/**
+ * Aquesta funció formata un nombre amb al format de percentatge
+ * @author mohamedkoujil
+ * @since 10/01/2023
+ * @param percentage Quantitat a transformar
+ * @return Quantitat amb el format de percentatge
+ */
+fun formatPercentage(percentage: Double): String {
+    return "${(percentage * 100)}%"
 }
 
