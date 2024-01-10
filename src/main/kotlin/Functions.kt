@@ -13,6 +13,18 @@ fun descompteFM (): Double {
     var descompteFM: Double = (10*membresFamilia)/100.0
     return descompteFM
 }
-A
 
+fun factura (quotaFixa: Double, quotaVariable: Double, consum: Int, descompteBS: Double, descompteFN: Double) {
+    var totalSenseDescomptes = quotaVariable+quotaFixa
+    var descomptes = (totalSenseDescomptes*descompteFN) + (totalSenseDescomptes*descompteBS)
+    var total = totalSenseDescomptes - descomptes
+
+
+    println("Quota fixa: $quotaFixa")
+    println("Consum: $consum L")
+    println("Total Brut: %.2f€".format(totalSenseDescomptes))
+    println("Descompte FN: ${descompteFN*100}%\n" +
+            "Descompte BS: ${descompteBS*100}%")
+    println("Total: %.2f€".format(total))
+}
 

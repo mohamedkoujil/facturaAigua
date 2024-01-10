@@ -34,5 +34,6 @@ fun main() {
             quotaFixa = 3.0
         }
     }
+    factura(quotaFixa, quotaVariable, consum, descompteBS, descompteFN)
 
 }
