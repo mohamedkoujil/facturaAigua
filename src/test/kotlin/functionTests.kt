@@ -1,78 +1,59 @@
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
 import kotlin.test.Test
 
-class functionsTests {
+class FacturaTest {
 
-    // Tests de la funció costLitre
+    // Test para la función costLitre
     @Test
-    fun testCostLitreConsumMoltAlt() {
-        val consum = 100000
-
-        val resultat = costLitre(consum)
-
-        assertEquals(0.30, resultat)
-    }
-    @Test
-    fun testCostLitreConsumMitja() {
-        val consum = 50
-
-        val resultat = costLitre(consum)
-
-        assertEquals(0.15, resultat)
-    }
-    @Test
-    fun testCostLitreConsumBaix() {
-        val consum = 49
-
-        val resultat = costLitre(consum)
-
-        assertEquals(0.0, resultat)
-    }
-
-    // Tests de la funció descompteFM
-    @Test
-    fun testDescompteFNMembresFamiliaAlt() {
-        val membresFamilia = 15
-
-        val resultat = descompteFN(membresFamilia)
-
-        assertEquals(0.5, resultat)
+    fun testCostLitre_ConsumBajo_RetornaCostLitreCero() {
+        val result = costLitre(30)
+        assertEquals(0.0, result)
     }
 
     @Test
-    fun testDescompteFNMembresFamBaix() {
-        val membresFamilia = 0
-
-        val resultat = descompteFN(membresFamilia)
-
-        assertEquals(0.0, resultat)
+    fun testCostLitre_ConsumMedio_RetornaCostLitreQuinceCents() {
+        val result = costLitre(120)
+        assertEquals(0.15, result)
     }
 
-    // Tests de la funció total
     @Test
-    fun testTotalSenseRes() {
-        val quotaFixa = 6.0
-        val quotaVariable = 0.0
-        val consum = 0
-        val descompteBS = 0.0
-        val descompteFN = 0.0
-
-        val resultat = total(quotaFixa, quotaVariable, consum, descompteBS, descompteFN)
-
-        assertEquals(6.0, resultat)
+    fun testCostLitre_ConsumAlto_RetornaCostLitreTrentaCents() {
+        val result = costLitre(250)
+        assertEquals(0.30, result)
     }
+
+    // Test para la función descompteFN
     @Test
-    fun testTotalSenseConsumAmbDescompteFN() {
-        val quotaFixa = 6.0
-        val quotaVariable = 0.0
-        val consum = 0
-        val descompteBS = 0.0
-        val descompteFN = 0.5
-
-        val resultat = total(quotaFixa, quotaVariable, consum, descompteBS, descompteFN)
-
-        assertEquals(3.0, resultat)
+    fun testDescompteFN_MembresFamiliaZero_RetornaZero() {
+        val result = descompteFN(0)
+        assertEquals(0.0, result)
     }
 
+    @Test
+    fun testDescompteFN_MembresFamiliaCinco_RetornaCinquantaPerCent() {
+        val result = descompteFN(5)
+        assertEquals(0.5, result)
+    }
+
+    @Test
+    fun testDescompteFN_MembresFamiliaDiez_RetornaCincPerCent() {
+        val result = descompteFN(10)
+        assertEquals(0.5, result)
+    }
+
+    // Test para la función total
+    @Test
+    fun testTotal_ValorsNegatius_RetornaZero() {
+        val result = total(-10.0, -20.0, -30, -0.5, -0.3)
+        assertEquals(0.0, result)
+    }
+
+    @Test
+    fun testTotal_ValorsPositius_RetornaTotalCorrecte() {
+        val result = total(20.0, 30.0, 150, 0.2, 0.0)
+        assertEquals(40.0, result)
+    }
+
+    // Resto de las funciones con retorno...
 
 }

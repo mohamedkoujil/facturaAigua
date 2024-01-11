@@ -9,6 +9,7 @@ fun main() {
         var descompteBS = 0.0
 
         var menu: Int
+        //Es mostra el menu fins que es trii la opció 1
         do {
             menu = readInt(
                 "Benvingut a la calculadora de factura d'aigua\n" +

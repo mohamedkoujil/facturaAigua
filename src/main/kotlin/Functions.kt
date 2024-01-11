@@ -23,15 +23,16 @@ fun costLitre (consum: Int): Double {
  * @return Descompte de familia nombrosa o monoparental
  */
 fun descompteFN (membresFamilia: Int): Double {
-    var descompteFM: Double = (10*membresFamilia)/100.0
-    if (descompteFM > 0.5) descompteFM = 0.5
-    return descompteFM
+    var descompteFN: Double = (10*membresFamilia)/100.0
+    if (descompteFN > 0.5) descompteFN = 0.5
+    return descompteFN
 }
 
 fun total (quotaFixa: Double, quotaVariable: Double, consum: Int, descompteBS: Double, descompteFN: Double): Double {
     var totalSenseDescomptes = quotaVariable+quotaFixa
     var descomptes = (totalSenseDescomptes*descompteFN) + (totalSenseDescomptes*descompteBS)
     var total = totalSenseDescomptes - descomptes
+    if (total < 0) total = 0.0
     return total
 }
 
@@ -120,7 +121,7 @@ fun historialFactures(quotaFixa: Double, quotaVariable: Double, consum: Int, des
  * @param historialFactures Historial de factures
  * @param facturaUsr Factura seleccionada per l'usuari
  */
-fun facturaEnHistorialUsr (historialFactures: MutableList<Array<Double>>, facturaUsr: Int) {
+fun facturaSeleccionada (historialFactures: MutableList<Array<Double>>, facturaUsr: Int) {
     var factura = facturaUsr-1
     println("           FACTURA")
     println("---------------------------")
@@ -142,10 +143,12 @@ fun facturaEnHistorialUsr (historialFactures: MutableList<Array<Double>>, factur
  * @param historialFactures Historial de factures
  */
 fun veureHistorial(historialFactures: MutableList<Array<Double>>) {
+    //Si no hi ha cap factura en l'historial, es mostra un missatge d'error
     if (historialFactures.isEmpty()) {
         println(RED + "No hi ha cap factura en l'historial" + RESET)
         TimeUnit.SECONDS.sleep(2)
     } else {
+        //Si hi ha alguna factura en l'historial, es mostra l'historial i es permet seleccionar una factura per veure-la amb més detall o tornar al menu principal
         do {
             var facturaUsr = readInt(
                 "Seleccioni una opció:\n" +
@@ -160,8 +163,9 @@ fun veureHistorial(historialFactures: MutableList<Array<Double>>) {
                 1,
                 historialFactures.lastIndex + 2
             )
+            //Selecionant l'última opció, es torna al menu principal
             if (facturaUsr == historialFactures.lastIndex + 2) break
-            facturaEnHistorialUsr(historialFactures, facturaUsr)
+            facturaSeleccionada(historialFactures, facturaUsr)
             TimeUnit.SECONDS.sleep(2)
         } while (true)
     }
