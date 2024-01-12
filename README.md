@@ -64,5 +64,5 @@ L'archiu [Utilites](/src/main/kotlin/Utilities.kt) comprova que l'entrada de dad
 
 ## Tests 
 <a id="tests" />
-Tots els tests estan en aquest [fitxer](/src/test/kotlin//functionTests.kt)
+Tots els tests estan en aquest [fitxer](/src/test/kotlin/functionTests.kt)
 
